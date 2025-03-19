@@ -1,0 +1,30 @@
+{
+  "name": "@kortexa-ai/stringlytyped-store",
+  "version": "0.1.0",
+  "description": "Stringly Typed Store: A simple offline storage for notes",
+  "copyright": "Copyright © 2025 kortexa.ai",
+  "author": {
+    "name": "Franci Penov",
+    "email": "francip@kortexa.ai",
+    "url": "https://kortexa.ai"
+  },
+  "keywords": [],
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kortexa-ai/stringlytyped-store.git"
+  },
+  "type": "module",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.7.0",
+    "axios": "^1.8.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "zod": "^3.24.2"
+  }
+}
