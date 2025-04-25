@@ -15,7 +15,7 @@ WorkingDirectory=/home/francip/src/stringlytyped-store
 
 Environment=PATH=/home/francip/.nvm/versions/node/v23.10.0/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
 Environment=NODE_ENV=production
-Environment=DATA_PATH=/home/francip/data/kortexa-ai
+Environment=DATA_PATH=/home/francip/data/kortexa-ai/resources
 
 ExecStart=/home/francip/src/stringlytyped-store/run.sh
 

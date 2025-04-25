@@ -7,6 +7,7 @@ import mkcert from 'mkcert';
 import { setMcpRoutes } from './mcp.js';
 import { setSlopRoutes } from './slop.js';
 import { loadEnv } from './dotenv.js';
+import { getDataDir } from './utils.js';
 
 // Load environment variables from .env file
 loadEnv();
@@ -16,9 +17,11 @@ const nodeEnv = process.env.NODE_ENV || 'development';
 const isDevelopment = nodeEnv === 'development';
 const port = process.env.USE_PORT || 3002;
 const useHttps = isDevelopment && process.env.USE_HTTPS === 'true';
+const dataDir = getDataDir();
 console.log('Environment:', nodeEnv);
 console.log('Port:', port);
 console.log('Use HTTPS:', useHttps);
+console.log('Data Path:', dataDir);
 
 // Setup server
 const app = express();

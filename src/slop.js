@@ -1,20 +1,12 @@
 // Implementation of the SLOP (Simple Lump of Plaintext) pattern
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { getDataDir } from './utils.js';
 
-// Set up file paths
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const dataDir = path.join(__dirname, 'data');
-
-// Ensure data directory exists
-if (!fs.existsSync(dataDir)) {
-    fs.mkdirSync(dataDir, { recursive: true });
-}
+const dataDir = getDataDir();
 
 // File-based resource functions
-const getResourceFiles = () => {
+function getResourceFiles() {
     try {
         return fs.readdirSync(dataDir)
             .filter(file => file.endsWith('.json'))
@@ -35,7 +27,7 @@ const getResourceFiles = () => {
     }
 };
 
-const getResourceById = (id) => {
+function getResourceById(id) {
     const filePath = path.join(dataDir, `${id}.json`);
     try {
         if (fs.existsSync(filePath)) {
@@ -49,17 +41,17 @@ const getResourceById = (id) => {
     }
 };
 
-const saveResource = (resource) => {
+function saveResource(resource) {
     if (!resource || !resource.id) {
         throw new Error('Resource must have an id');
     }
-    
+
     const filePath = path.join(dataDir, `${resource.id}.json`);
     fs.writeFileSync(filePath, JSON.stringify(resource, null, 2));
     return resource;
 };
 
-const deleteResource = (id) => {
+function deleteResource(id) {
     const filePath = path.join(dataDir, `${id}.json`);
     if (fs.existsSync(filePath)) {
         fs.unlinkSync(filePath);
@@ -69,7 +61,7 @@ const deleteResource = (id) => {
 };
 
 // Set up SLOP-related routes
-const setSlopRoutes = (app) => {
+export function setSlopRoutes(app) {
     // RESOURCES
     // - `GET /resources` - List available resources
     // - `GET /resources/:id` - Get a specific resource
@@ -95,7 +87,7 @@ const setSlopRoutes = (app) => {
             if (!resource.id) {
                 resource.id = `resource_${Date.now()}`;
             }
-            
+
             const saved = saveResource(resource);
             res.status(201).json(saved);
         } catch (err) {
@@ -107,10 +99,10 @@ const setSlopRoutes = (app) => {
         try {
             const id = req.params.id;
             const resource = req.body;
-            
+
             // Ensure the ID in the URL matches the resource ID
             resource.id = id;
-            
+
             const saved = saveResource(resource);
             res.json(saved);
         } catch (err) {
@@ -125,6 +117,4 @@ const setSlopRoutes = (app) => {
         }
         res.json({ status: 'deleted' });
     });
-};
-
-export { setSlopRoutes };
+}
