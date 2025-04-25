@@ -14,7 +14,7 @@ loadEnv();
 // Environment settings
 const nodeEnv = process.env.NODE_ENV || 'development';
 const isDevelopment = nodeEnv === 'development';
-const port = process.env.USE_PORT || 3000;
+const port = process.env.USE_PORT || 3002;
 const useHttps = isDevelopment && process.env.USE_HTTPS === 'true';
 console.log('Environment:', nodeEnv);
 console.log('Port:', port);
